@@ -38,7 +38,7 @@ class Calculations:
     def find_by_operation(cls, operation_name: str) -> List[Calculation]:
         """Find and return a list of calculations by name of the operation."""
         return [calc for calc in cls.history if calc.operation.__name__ == operation_name]
-
+    
     @classmethod
     def save_history(cls):
         """Save the current instance history to a CSV file."""

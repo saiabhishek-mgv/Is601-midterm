@@ -34,20 +34,23 @@ class CalculatorREPL:
                                         instance = command_class(self.command_handler)
                                     else:
                                         instance = command_class()
-                                    command_name = instance.__class__.__name__.replace('Command', '').replace('_',' ').title()
+                                    command_name = instance.__class__.__name__.replace('Command', '').replace('_', ' ').title()
                                     self.command_handler.register_command(command_name, instance)
 
     def start(self):
-        print("Type 'Menu' to see the list of available commands or 'exit' to exit.")
-        while True:
-            try:
+        print("Type 'Menu' to see the list of available commands or 'Exit' to exit.")
+        try:
+            while True:
                 user_input = input(">>> ").strip()
                 if user_input.lower() == 'exit':
                     print("Exiting the calculator. Goodbye!")
                     break
                 self.command_handler.execute_command(user_input)
-            except Exception as e:
-                print(f"An unexpected error occurred: {e}")
-            finally:
-                 Calculations.save_history()  # Save history on exit
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        finally:
+            Calculations.save_history()  # Save history on exit
 
+if __name__ == "__main__":
+    repl = CalculatorREPL()
+    repl.start()
