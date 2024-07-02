@@ -6,6 +6,5 @@ class DeleteHistoryCommand(Command):
     def execute(self, *args):
         try:
             Calculations.delete_history()
-            print("History deleted successfully.")
         except Exception as e:
             print(f"Failed to delete history: {e}")

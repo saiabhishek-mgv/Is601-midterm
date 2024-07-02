@@ -77,11 +77,12 @@ class Calculations:
 
     @classmethod
     def delete_history(cls):
-        """Delete the CSV file containing the history."""
+        """Delete the CSV file containing the history and clear in-memory history."""
         try:
             if os.path.exists(cls.file_path):
                 os.remove(cls.file_path)
                 print("History deleted successfully.")
+                cls.clear_history()  # Clear in-memory history as well
             else:
                 print("No history file found to delete.")
         except Exception as e:
