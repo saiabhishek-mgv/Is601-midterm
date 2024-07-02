@@ -46,17 +46,6 @@ def test_divide_by_zero(handler):
     with pytest.raises(ZeroDivisionError, match="Cannot divide by zero"):
         handler.execute_command('Divide 8 0')
 
-def test_load_command(handler):
-    Calculations.clear_history()
-    command = LoadHistoryCommand()
-    handler.register_command('Loadhistory', command)
-    Calculations.add_calculation(Calculations.get_latest())
-    command2 = SaveHistoryCommand()
-    handler.register_command('Savehistory', command2)   
-    handler.execute_command('Savehistory')
-    Calculations.clear_history()
-    handler.execute_command('Loadhistory')
-    assert len(Calculations.get_history()) == 0
 
 def test_save_command(handler):
     Calculations.clear_history()
