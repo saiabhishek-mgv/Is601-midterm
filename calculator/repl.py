@@ -8,7 +8,7 @@ class CalculatorREPL:
         self.command_handler = CommandHandler()
         self.plugin_dir = plugin_dir
         self._load_plugins()
-        Calculations.get_history()  # Load history on startup
+        Calculations.load_history()  # Load history on startup
 
     def _load_plugins(self):
         plugins_path = os.path.join(os.path.dirname(__file__), self.plugin_dir)
@@ -48,4 +48,6 @@ class CalculatorREPL:
                 self.command_handler.execute_command(user_input)
             except Exception as e:
                 print(f"An unexpected error occurred: {e}")
+            finally:
+                 Calculations.save_history()  # Save history on exit
 
