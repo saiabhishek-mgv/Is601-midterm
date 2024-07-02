@@ -19,6 +19,3 @@ class DivideCommand(Command):
         except ZeroDivisionError as e:
             print(e)
             raise e  # Re-raise the ZeroDivisionError
-        except ValueError as e:
-            print(e)
-            raise e  # Re-raise other ValueErrors
