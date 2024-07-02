@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from decimal import Decimal
 from typing import List
@@ -6,7 +7,7 @@ from calculator.operations import add, subtract, multiply, divide
 import os
 
 class Calculations:
-    file_path = 'calculation_history.csv'
+    file_path = os.getenv('HISTORY_FILE_PATH', 'calculation_history.csv')
     history = []
     _cleared = False
 
@@ -26,6 +27,7 @@ class Calculations:
         """Clear the history of calculations."""
         cls.history.clear()
         cls._cleared = True
+        logging.info("Cleared the current instance history")
     
     @classmethod
     def save_history(cls):
@@ -48,6 +50,7 @@ class Calculations:
             combined_df = pd.DataFrame(data)
         
         combined_df.to_csv(cls.file_path, index=False)
+        logging.info("Saved current instance history to CSV file.")
 
     @classmethod
     def load_history(cls):
@@ -55,12 +58,15 @@ class Calculations:
         try:
             if not os.path.exists(cls.file_path) or os.path.getsize(cls.file_path) == 0:
                 cls.history = []
+                logging.info("No existing history to load from CSV file.")
                 return
             df = pd.read_csv(cls.file_path)
             operations = {'add': add, 'subtract': subtract, 'multiply': multiply, 'divide': divide}
             cls.history = [Calculation(Decimal(row['a']), Decimal(row['b']), operations[row['operation']]) for _, row in df.iterrows()]
+            logging.info("Loaded history from CSV file.")
         except Exception as e:
             print(f"Failed to load history: {e}")
+            logging.error("Failed to load history: %s", e)
             cls.history = []
 
     @classmethod
@@ -70,14 +76,17 @@ class Calculations:
             if os.path.exists(cls.file_path):
                 os.remove(cls.file_path)
                 print("History deleted successfully.")
+                logging.info("Deleted history CSV file.")
                 cls.clear_history()  # Clear in-memory history as well
             else:
-                print("No history file found to delete.")
+                logging.warning("No history file found to delete.")
         except Exception as e:
             print(f"Failed to delete history: {e}")
+            logging.error("Failed to delete history: %s", e)
 
     @classmethod
     def print_history(cls):
         """Print the current history of calculations."""
         for calc in cls.history:
             print(calc)
+        logging.info("Printed current instance history.")

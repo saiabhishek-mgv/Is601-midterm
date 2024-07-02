@@ -1,14 +1,35 @@
+import logging
+import logging.config
 import os
 import importlib.util
+from dotenv import load_dotenv
 from calculator.commands import CommandHandler, Command
 from calculator.calculations import Calculations
 
 class CalculatorREPL:
     def __init__(self, plugin_dir='plugins'):
+        if not os.path.exists('logs'):
+            os.makedirs('logs')
+        self.configure_logging()
+        load_dotenv()
+        self.settings = self.load_environment_variables()
+        self.settings.setdefault('ENVIRONMENT', 'PRODUCTION')
         self.command_handler = CommandHandler()
-        self.plugin_dir = plugin_dir
+        self.plugin_dir = self.settings.get('PLUGIN_DIR', 'plugins')
         self._load_plugins()
-        Calculations.load_history()  # Load history on startup
+        #Calculations.load_history()  # Load history on startup
+    
+    def configure_logging(self):
+        logging_conf_path = 'logging.conf'
+        if os.path.exists(logging_conf_path):
+            logging.config.fileConfig(logging_conf_path, disable_existing_loggers=False)
+        else:
+            logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+            logging.info("Logging configured.")
+    def load_environment_variables(self):
+        settings = {key: value for key, value in os.environ.items()}
+        logging.info("Environment variables loaded.")
+        return settings
 
     def _load_plugins(self):
         plugins_path = os.path.join(os.path.dirname(__file__), self.plugin_dir)
@@ -44,13 +65,15 @@ class CalculatorREPL:
                 user_input = input(">>> ").strip()
                 if user_input.lower() == 'exit':
                     print("Exiting the calculator. Goodbye!")
+                    logging.info("Exiting the calculator.")
                     break
-                self.command_handler.execute_command(user_input)
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
+                try:
+                    self.command_handler.execute_command(user_input)
+                except ValueError as e:
+                    print(f"Error: {e}")
+                    logging.error("Error executing command: %s", e)
+                except Exception as e:
+                    print(f"An unexpected error occurred: {e}")
+                    logging.error("An unexpected error occurred: %s", e)
         finally:
             Calculations.save_history()  # Save history on exit
-
-if __name__ == "__main__":
-    repl = CalculatorREPL()
-    repl.start()
