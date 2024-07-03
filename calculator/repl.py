@@ -26,6 +26,7 @@ class CalculatorREPL:
         else:
             logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
             logging.info("Logging configured.")
+    
     def load_environment_variables(self):
         settings = {key: value for key, value in os.environ.items()}
         logging.info("Environment variables loaded.")

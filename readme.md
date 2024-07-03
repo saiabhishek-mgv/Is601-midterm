@@ -95,13 +95,25 @@ The console output is minimized to only display critical information, while deta
 The project uses both "Look Before You Leap" (LBYL) and "Easier to Ask for Forgiveness than Permission" (EAFP) approaches for exception handling. Here are some examples:
 
 ### LBYL: Checking conditions before performing operations.
+LBYL is a programming style that checks for potential problems before performing an operation. This approach is characterized by checking conditions before attempting the operation to avoid exceptions.
 
 [View Code](https://github.com/saiabhishek-mgv/Is601-midterm/blob/20d6c592590a067d78111d1c9fd0ce8c091ffe15/calculator/repl.py#L24)
 
 ### EAFP: Trying to perform an operation and handling exceptions if it fails.
+EAFP is a programming style that assumes the desired operation will generally work and handles exceptions if it fails. This approach is characterized by trying to perform an operation and catching exceptions if they occur.
 
 [View Code](https://github.com/saiabhishek-mgv/Is601-midterm/blob/20d6c592590a067d78111d1c9fd0ce8c091ffe15/calculator/repl.py#L67)
 
+## Environment Variables
+
+Environment variables are used to dynamically configure various aspects of the application without changing the code. This project uses environment variables for the history file path and plugin directory.
+
+- HISTORY_FILE_PATH: Specifies the path to the CSV file where the calculation history is stored.
+- PLUGIN_DIR: Specifies the directory where the plugins are located.
+
+Environment variables are loaded using the dotenv library at the start of the application. This allows for dynamic configuration based on the environment in which the application is running.
+
+[View code](https://github.com/saiabhishek-mgv/Is601-midterm/blob/c0d9106b4ce5bd2db0e8d1494ce0d8c5891289e0/calculator/repl.py#L18)
 
 ## Video Demonstration
 [view demo]()
