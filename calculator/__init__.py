@@ -1,9 +1,9 @@
 # Import necessary modules and classes
-from calculator.calculations import Calculations  # Manages history of calculations
-from calculator.operations import add, subtract, multiply, divide  # Arithmetic operations
-from calculator.calculation import Calculation  # Represents a single calculation
-from decimal import Decimal  # For high-precision arithmetic
-from typing import Callable  # For type hinting callable objects
+from calculator.calculations import Calculations
+from calculator.operations import add, subtract, multiply, divide
+from calculator.calculation import Calculation
+from decimal import Decimal
+from typing import Callable
 
 # Definition of the Calculator class
 class Calculator:

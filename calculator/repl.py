@@ -33,9 +33,6 @@ class CalculatorREPL:
 
     def _load_plugins(self):
         plugins_path = os.path.join(os.path.dirname(__file__), self.plugin_dir)
-        #if not os.path.exists(plugins_path):
-            #print(f"Plugin directory does not exist: {plugins_path}")
-            #return
 
         for subdir in os.listdir(plugins_path):
             subdir_path = os.path.join(plugins_path, subdir)
