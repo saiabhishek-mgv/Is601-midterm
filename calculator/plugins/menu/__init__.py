@@ -6,6 +6,12 @@ class MenuCommand(Command):
 
     def execute(self, *args):
         print("Available commands:")
-        for command_name in self.command_handler.commands:
-            if command_name != 'menu':
-                print(f"- {command_name}")
+        # Get and sort commands by length and then alphabetically
+        sorted_commands = sorted(
+            [cmd for cmd in self.command_handler.commands if cmd != 'menu'],
+            key=lambda cmd: (len(cmd), cmd)
+        )
+        
+        # Print sorted commands
+        for command_name in sorted_commands:
+            print(f"- {command_name.capitalize()}")

@@ -166,10 +166,10 @@ def test_menu_command():
         command.execute()
         # Check that the output contains the expected commands, excluding 'menu'
         mock_print.assert_any_call("Available commands:")
-        mock_print.assert_any_call("- add")
-        mock_print.assert_any_call("- subtract")
-        mock_print.assert_any_call("- multiply")
-        mock_print.assert_any_call("- divide")
+        mock_print.assert_any_call("- Add")
+        mock_print.assert_any_call("- Subtract")
+        mock_print.assert_any_call("- Multiply")
+        mock_print.assert_any_call("- Divide")
         #mock_print.assert_any_call("- menu")
 
 def test_load_history_success():
