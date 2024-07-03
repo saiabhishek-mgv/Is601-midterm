@@ -48,7 +48,7 @@ This project leverages several design patterns to enhance code structure, flexib
 
 Used to provide a simplified interface for complex Pandas data manipulations.
 The CalculationsFacade class encapsulates all interactions with the Pandas library, providing simple methods for loading, saving, and manipulating calculation history.
-https://github.com/saiabhishek-mgv/Is601-midterm/blob/main/calculator/calculations.py
+[View code](https://github.com/saiabhishek-mgv/Is601-midterm/blob/25a5de89f5fbbf0b0c39e99eede753738d7ab870/calculator/calculations.py#L9C1-L30C61)
 
 ### Command Pattern:
 
